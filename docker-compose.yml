@@ -1,0 +1,21 @@
+version: '3.1'
+services:
+  web:
+    image: odoo:17
+    depends_on:
+      - mydb
+    ports:
+      - "8069:8069"
+    environment:
+    - HOST=mydb
+    - USER=odoo
+    - PASSWORD=odoo
+    volumes:
+      - ./addons:/mnt/extra-addons
+      - ./config:/etc/odoo
+  mydb:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
